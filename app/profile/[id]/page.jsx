@@ -37,6 +37,7 @@ export default async function Profile({ params }) {
       <div className="grid grid-cols-2">
         {user?.posts?.map((post) => (
           <Suspense
+            key={post?.id}
             fallback={
               <div className=" flex flex-col p-4 mt-2 mr-4">
                 <Skeleton className="w-[300px] h-[300px] rounded-lg mb-2" />
