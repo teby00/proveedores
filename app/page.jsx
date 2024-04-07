@@ -7,6 +7,8 @@ import { Button } from "@nextui-org/button";
 import { Search } from "lucide-react";
 import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const productos = await prisma.post.findMany({
     orderBy: {
