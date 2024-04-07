@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ImageOff, Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
-import { Avatar } from "@nextui-org/avatar";
+import prisma from "../lib/db";
 import { User } from "@nextui-org/user";
 
 export default async function Post({ params }) {
