@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import prisma from "../lib/db";
+import prisma from "@/lib/db";
 import { Skeleton } from "@nextui-org/skeleton";
 import CardProduct from "@/components/CardProduct";
 import { Input } from "@nextui-org/input";
