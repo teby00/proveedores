@@ -5,8 +5,14 @@ import { Skeleton } from "@nextui-org/skeleton";
 import { User } from "@nextui-org/user";
 import { Button } from "@nextui-org/button";
 import { LogOut } from "lucide-react";
+import { auth } from "@/auth";
+import DeletePost from "@/components/DeletePost";
+
+export const dynamic = "force-dynamic";
 
 export default async function Profile({ params }) {
+  const session = await auth();
+
   const user = await prisma.user.findFirst({
     where: {
       id: params.id,
@@ -29,9 +35,11 @@ export default async function Profile({ params }) {
           name={user?.name}
           avatarProps={{ src: user?.image, size: "lg" }}
         />
-        <Button isIconOnly aria-label="Cerrar sesion">
-          <LogOut />
-        </Button>
+        {/* {session?.user?.id === params?.id && (
+          <Button isIconOnly aria-label="Cerrar sesion">
+            <LogOut />
+          </Button>
+        )} */}
       </div>
 
       <div className="grid grid-cols-2">
@@ -39,14 +47,20 @@ export default async function Profile({ params }) {
           <Suspense
             key={post?.id}
             fallback={
-              <div className=" flex flex-col p-4 mt-2 mr-4">
-                <Skeleton className="w-[300px] h-[300px] rounded-lg mb-2" />
-                <Skeleton className=" w-40 h-3 rounded-lg mb-2" />
+              <div className=" flex flex-col p-4">
+                <Skeleton className="aspect-square rounded-lg mb-3" />
+                <Skeleton className=" w-40 h-4 rounded-lg mb-3" />
                 <Skeleton className=" w-20 h-3 rounded-lg" />
               </div>
             }
           >
-            <CardProduct key={post.id} id={post?.id} />
+            <CardProduct
+              key={post.id}
+              id={post?.id}
+              cornerEl={
+                session?.user?.id === params?.id && <DeletePost id={post?.id} />
+              }
+            />
           </Suspense>
         ))}
       </div>

@@ -17,11 +17,11 @@ export default async function Home() {
   });
   return (
     <main className="flex min-h-screen flex-col items-center mx-auto pt-40 max-w-5xl">
-      <div className=" mb-36">
-        <h1 className="text-center text-3xl font-medium text-gray-900 dark:text-gray-50 sm:text-6xl">
+      <div className=" mb-32">
+        <h1 className="text-center px-4 text-3xl font-medium text-gray-900 dark:text-gray-50 sm:text-6xl">
           Encuentra tus proveedores
         </h1>
-        <h2 className="my-6 text-center text-lg leading-6 text-gray-600 dark:text-gray-200">
+        <h2 className="my-6 px-4 text-center text-lg leading-6 text-gray-600 dark:text-gray-200">
           Conecta con proveedores o clientes de toda Cuba.
         </h2>
 
@@ -53,9 +53,9 @@ export default async function Home() {
           <Suspense
             key={post.id}
             fallback={
-              <div className=" flex flex-col p-4 mt-2 mr-4">
-                <Skeleton className="w-[300px] h-[300px] rounded-lg mb-2" />
-                <Skeleton className=" w-40 h-3 rounded-lg mb-2" />
+              <div className=" flex flex-col p-4">
+                <Skeleton className="aspect-square rounded-lg mb-3" />
+                <Skeleton className=" w-40 h-4 rounded-lg mb-3" />
                 <Skeleton className=" w-20 h-3 rounded-lg" />
               </div>
             }

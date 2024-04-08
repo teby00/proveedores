@@ -35,25 +35,34 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Image {
+  id     String @id 
+  url    String @unique
+  postId String    
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+
 model Post {
-  id          String   @id @default(cuid())
-  tittle      String
-  description String
-  min         Int
-  price       Float
-  currency    String
-  phone       Int
-  image       String?
-  email       String?
-  address     String?
-  location    String
-  packing     String?
+  id            String   @id @default(cuid())
+  tittle        String
+  description   String
+  min           Int
+  price         Float
+  currency      String
+  phone         Int
+  email         String?
+  address       String?
+  location      String
+  packing       String?
   units_packing Int?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  userId      String    
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  images        Image[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  userId        String    
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 } 
+
 
 model User {
   id            String    @id @default(cuid())
