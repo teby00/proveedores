@@ -12,9 +12,9 @@ import {
 } from "@/components/ui/drawer";
 import { deletePost } from "@/lib/actions";
 
-export default function DeletePost({ id }) {
+export default function DeletePost({ id, userId }) {
   const handleDelete = async () => {
-    deletePost({ id });
+    deletePost({ id, userId });
   };
 
   return (

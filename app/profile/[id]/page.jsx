@@ -58,7 +58,9 @@ export default async function Profile({ params }) {
               key={post.id}
               id={post?.id}
               cornerEl={
-                session?.user?.id === params?.id && <DeletePost id={post?.id} />
+                session?.user?.id === params?.id && (
+                  <DeletePost id={post?.id} userId={params.id} />
+                )
               }
             />
           </Suspense>
