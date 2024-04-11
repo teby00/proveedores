@@ -2,6 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import Navbar from "@/components/Navbar";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,6 +45,8 @@ export default async function RootLayout({ children }) {
         <Providers>
           <Navbar />
           {children}
+          <SpeedInsights />
+          <Analytics />
         </Providers>
       </body>
     </html>

@@ -11,14 +11,15 @@ export default async function Post({ params }) {
     },
     include: {
       user: true,
+      images: true,
     },
   });
 
   return (
     <div className=" max-w-unit-10xl mx-auto h-min-screen md:px-unit-8xl pb-8">
-      {post?.image ? (
+      {post?.images ? (
         <Image
-          src={post?.image}
+          src={post?.images[0]?.url}
           width={600}
           height={600}
           className="object-cover aspect-video rounded-lg"

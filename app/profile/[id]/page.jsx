@@ -3,8 +3,8 @@ import CardProduct from "@/components/CardProduct";
 import { Suspense } from "react";
 import { Skeleton } from "@nextui-org/skeleton";
 import { User } from "@nextui-org/user";
-import { Button } from "@nextui-org/button";
-import { LogOut } from "lucide-react";
+// import { Button } from "@nextui-org/button";
+// import { LogOut } from "lucide-react";
 import { auth } from "@/auth";
 import DeletePost from "@/components/DeletePost";
 

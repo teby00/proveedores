@@ -16,9 +16,9 @@ export default async function Home() {
     },
   });
   return (
-    <main className="flex min-h-screen flex-col items-center mx-auto pt-40 max-w-5xl">
+    <main className="flex min-h-screen flex-col items-center mx-auto pt-32 md:pt-40 max-w-5xl">
       <div className=" mb-32">
-        <h1 className="text-center px-4 text-3xl font-medium text-gray-900 dark:text-gray-50 sm:text-6xl">
+        <h1 className="text-center px-2 text-3xl font-medium text-gray-900 dark:text-gray-50 sm:text-6xl">
           Encuentra tus proveedores
         </h1>
         <h2 className="my-6 px-4 text-center text-lg leading-6 text-gray-600 dark:text-gray-200">

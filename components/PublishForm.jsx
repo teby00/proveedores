@@ -2,15 +2,16 @@
 
 import { Input, Textarea } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
-import { Button } from "@nextui-org/button";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { agregarProducto } from "@/lib/actions";
-import { useFormState, useFormStatus } from "react-dom";
+import { Button } from "@nextui-org/button";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { ImagePlus, X } from "lucide-react";
+import { useTransition } from "react";
 
 const moneda = [
   {
@@ -55,27 +56,10 @@ const schema = z.object({
   units_packing: z.number().positive().catch(null),
 });
 
-const initialState = {
-  tittle: "",
-  price: "",
-  min: "",
-  description: "",
-};
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button color="primary" as="button" type="submit" isLoading={pending}>
-      Agregar
-    </Button>
-  );
-}
-
 export default function PublishForm() {
-  const [errores, formAction] = useFormState(agregarProducto, initialState);
   const { data: session } = useSession();
   const [file, setFile] = useState(undefined);
+  const [isPending, startTransition] = useTransition();
 
   const {
     register,
@@ -92,7 +76,9 @@ export default function PublishForm() {
   const onSubmit = async (dataForm) => {
     const formData = new FormData();
     formData.append("image", file);
-    await formAction({ ...dataForm, userId: session?.userId, formData });
+    startTransition(async () => {
+      await agregarProducto({ ...dataForm, userId: session?.userId, formData });
+    });
   };
 
   return (
@@ -277,7 +263,16 @@ export default function PublishForm() {
           />
         </div>
         <div className="flex justify-end">
-          <SubmitButton />
+          <Button
+            color="primary"
+            as="button"
+            type="submit"
+            className="w-full md:w-auto mt-4"
+            isLoading={isPending}
+            disabled={isPending}
+          >
+            Agregar
+          </Button>
         </div>
       </form>
     </main>

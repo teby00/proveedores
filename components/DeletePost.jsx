@@ -11,10 +11,14 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { deletePost } from "@/lib/actions";
+import { useTransition } from "react";
 
 export default function DeletePost({ id, userId }) {
+  const [isPending, startTransition] = useTransition();
   const handleDelete = async () => {
-    deletePost({ id, userId });
+    startTransition(async () => {
+      deletePost({ id, userId });
+    });
   };
 
   return (
@@ -34,7 +38,9 @@ export default function DeletePost({ id, userId }) {
             <Button
               color="danger"
               onPress={handleDelete}
-              startContent={<Trash2 />}
+              isLoading={isPending}
+              disabled={isPending}
+              startContent={!isPending && <Trash2 />}
               fullWidth
             >
               Eliminar
