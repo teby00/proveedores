@@ -42,7 +42,7 @@ export default function FormSearch() {
         type="submit"
         disabled={isPending}
         isLoading={isPending}
-        className="h-14 w-14 rounded-l-none"
+        className="rounded-l-none"
         isIconOnly
       >
         <Search />
