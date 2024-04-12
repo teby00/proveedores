@@ -19,7 +19,7 @@ export default async function Search({ searchParams }) {
       <main className=" min-h-screen flex flex-col items-start justify-center mx-auto mt-[-4rem] md:pt-20 max-w-5xl">
         <div className="px-10 text-gray-300">
           <h1 className="text-4xl mb-2 font-medium text-gray-900 dark:text-gray-50 sm:text-4xl">
-            No hay resultados para "{searchParams?.q}"
+            No hay resultados para \"{searchParams?.q}\"
           </h1>
           <p>Intenta con otra forma de escribir lo que estás buscando.</p>
           <Button
