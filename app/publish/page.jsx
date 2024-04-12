@@ -1,4 +1,4 @@
-import { auth } from "auth";
+import { auth } from "@/auth";
 import PublishForm from "@/components/PublishForm";
 import { redirect } from "next/navigation";
 

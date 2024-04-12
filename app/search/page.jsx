@@ -1,7 +1,9 @@
 import prisma from "@/lib/db";
 import { Suspense } from "react";
 import { Skeleton } from "@nextui-org/skeleton";
+import { Button } from "@nextui-org/button";
 import CardProduct from "@/components/CardProduct";
+import Link from "next/link";
 
 export default async function Search({ searchParams }) {
   const productos = await prisma.post.findMany({
@@ -17,11 +19,18 @@ export default async function Search({ searchParams }) {
       <main className=" min-h-screen flex flex-col items-start justify-center mx-auto mt-[-4rem] md:pt-20 max-w-5xl">
         <div className="px-10 text-gray-300">
           <h1 className="text-4xl mb-2 font-medium text-gray-900 dark:text-gray-50 sm:text-4xl">
-            No hay resultados para {searchParams?.q}
+            No hay resultados para "{searchParams?.q}"
           </h1>
-          <p className="">
-            Intenta con otra forma de escribir lo que estás buscando.
-          </p>
+          <p>Intenta con otra forma de escribir lo que estás buscando.</p>
+          <Button
+            className="mt-4"
+            as={Link}
+            href="/"
+            color="primary"
+            variant="flat"
+          >
+            Volver a inicio
+          </Button>
         </div>
       </main>
     );

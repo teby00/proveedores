@@ -25,14 +25,23 @@ export default function Nav() {
           <SessionModule />
         </NavbarItem>
         <NavbarItem>
-          <Link href="/publish">
-            <Button color="primary" className="hidden md:block">
-              Publica tu anuncio
-            </Button>
-            <Button color="primary" className="md:hidden" isIconOnly>
-              <Plus />
-            </Button>
-          </Link>
+          <Button
+            color="primary"
+            as={Link}
+            href="/publish"
+            className="hidden md:flex"
+          >
+            Publica tu anuncio
+          </Button>
+          <Button
+            color="primary"
+            as={Link}
+            href="/publish"
+            className="md:hidden"
+            isIconOnly
+          >
+            <Plus />
+          </Button>
         </NavbarItem>
       </NavbarContent>
     </Navbar>
