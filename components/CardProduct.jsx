@@ -34,7 +34,9 @@ export default async function CardProduct({ id, cornerEl }) {
           </div>
         )}
 
-        <h3 className="text-lg md:text-xl font-bold mt-2">{post?.tittle}</h3>
+        <h3 className="text-md line-clamp-1 md:text-xl font-bold mt-2">
+          {post?.tittle}
+        </h3>
 
         <p className=" text-gray-500 font-extrabold uppercase mt-1">
           ${post?.price}

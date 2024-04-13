@@ -42,6 +42,8 @@ export default function FormSearch() {
         type="submit"
         disabled={isPending}
         isLoading={isPending}
+        title="Buscar"
+        aria-label="Buscar"
         className="rounded-l-none"
         isIconOnly
       >

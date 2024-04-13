@@ -4,6 +4,8 @@ import { Providers } from "./providers";
 import Navbar from "@/components/Navbar";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import Footer from "@/components/Footer";
+import BottomNavabar from "@/components/BottomNavbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +15,7 @@ export const metadata = {
     template: "%s | Aurora",
   },
   description: "Proveedores - Conecta con proveedores o clientes de toda Cuba.",
-  metadataBase: new URL("https://aurora-pink.vercel.app"),
+  metadataBase: new URL("https://proveedoresapp.vercel.app"),
   robots: {
     index: false,
     follow: true,
@@ -31,7 +33,7 @@ export const metadata = {
     title: "Proveedores",
     description:
       "Proveedores - Conecta con proveedores o clientes de toda Cuba.",
-    url: "https://aurora-pink.vercel.app",
+    url: "https://proveedoresapp.vercel.app",
     siteName: "Proveedores",
     locale: "es_CU",
     type: "website",
@@ -41,13 +43,18 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   return (
     <html lang="es">
+      <head>
+        <link rel="icon" href="/img/icons/favicon.svg" sizes="any" />
+      </head>
       <body className={inter.className}>
         <Providers>
           <Navbar />
+          <BottomNavabar />
           {children}
           <SpeedInsights />
           <Analytics />
         </Providers>
+        <Footer />
       </body>
     </html>
   );

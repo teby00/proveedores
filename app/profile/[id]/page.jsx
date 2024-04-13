@@ -42,15 +42,15 @@ export default async function Profile({ params }) {
         )} */}
       </div>
 
-      <div className="grid grid-cols-2">
+      <div className="grid w-full grid-cols-2">
         {user?.posts?.map((post) => (
           <Suspense
             key={post?.id}
             fallback={
               <div className=" flex flex-col p-4">
                 <Skeleton className="aspect-square rounded-lg mb-3" />
-                <Skeleton className=" w-40 h-4 rounded-lg mb-3" />
-                <Skeleton className=" w-20 h-3 rounded-lg" />
+                <Skeleton className=" w-3/4 h-4 rounded-lg mb-3" />
+                <Skeleton className=" w-1/3 h-3 rounded-lg" />
               </div>
             }
           >
