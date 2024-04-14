@@ -1,4 +1,4 @@
-export default function Logo({ size = "24px", stroke = "currentColor" }) {
+export default function Logo({ size = '24px', stroke = 'currentColor' }) {
   return (
     <svg
       width={size}

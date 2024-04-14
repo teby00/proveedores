@@ -1,14 +1,14 @@
-import prisma from "@/lib/db";
-import CardProduct from "@/components/CardProduct";
-import { Suspense } from "react";
-import { Skeleton } from "@nextui-org/skeleton";
-import { User } from "@nextui-org/user";
+import prisma from '@/lib/db';
+import CardProduct from '@/components/CardProduct';
+import { Suspense } from 'react';
+import { Skeleton } from '@nextui-org/skeleton';
+import { User } from '@nextui-org/user';
 // import { Button } from "@nextui-org/button";
 // import { LogOut } from "lucide-react";
-import { auth } from "@/auth";
-import DeletePost from "@/components/DeletePost";
+import { auth } from '@/auth';
+import DeletePost from '@/components/DeletePost';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default async function Profile({ params }) {
   const session = await auth();
@@ -20,6 +20,7 @@ export default async function Profile({ params }) {
     select: {
       image: true,
       name: true,
+      email: true,
       posts: {
         select: {
           id: true,
@@ -29,11 +30,12 @@ export default async function Profile({ params }) {
   });
 
   return (
-    <main className="mx-auto min-h-screen pt-6 pb-20 max-w-2xl">
+    <main className="mx-auto min-h-screen md:pt-6 pb-20 max-w-2xl">
       <div className="flex justify-between items-center p-4">
         <User
           name={user?.name}
-          avatarProps={{ src: user?.image, size: "lg" }}
+          description={user?.email}
+          avatarProps={{ src: user?.image, size: 'lg' }}
         />
         {/* {session?.user?.id === params?.id && (
           <Button isIconOnly aria-label="Cerrar sesion">

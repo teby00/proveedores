@@ -1,57 +1,58 @@
-"use client";
+'use client';
 
-import { Input, Textarea } from "@nextui-org/input";
-import { Select, SelectItem } from "@nextui-org/select";
+import { Input, Textarea } from '@nextui-org/input';
+import { Select, SelectItem } from '@nextui-org/select';
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { agregarProducto } from "@/lib/actions";
-import { Button } from "@nextui-org/button";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { ImagePlus, X } from "lucide-react";
-import { useTransition } from "react";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { agregarProducto } from '@/lib/actions';
+import { Button } from '@nextui-org/button';
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import AddPicture from '@/components/icons/add-picture';
+import { X } from 'lucide-react';
+import { useTransition } from 'react';
 
 const moneda = [
   {
-    value: "cup",
-    label: "CUP",
+    value: 'cup',
+    label: 'CUP',
   },
   {
-    value: "usd",
-    label: "USD",
+    value: 'usd',
+    label: 'USD',
   },
 ];
 
 const schema = z.object({
-  tittle: z.string().min(1, { message: "Debe agregar un nombre al producto" }),
+  tittle: z.string().min(1, { message: 'Debe agregar un nombre al producto' }),
   price: z
     .number({
-      required_error: "Agrega el precio",
-      invalid_type_error: "Debe tener un precio",
+      required_error: 'Agrega el precio',
+      invalid_type_error: 'Debe tener un precio',
     })
-    .positive({ message: "El precio no puede ser un valor negativo" }),
+    .positive({ message: 'El precio no puede ser un valor negativo' }),
   description: z.string().catch(null),
   min: z
     .number({
-      required_error: "Agrega un minimo de pedido",
-      invalid_type_error: "Debe tener un minimo de pedido",
+      required_error: 'Agrega un minimo de pedido',
+      invalid_type_error: 'Debe tener un minimo de pedido',
     })
-    .positive({ message: "El pedido minimo no puede ser un valor negativo" }),
+    .positive({ message: 'El pedido minimo no puede ser un valor negativo' }),
   currency: z.enum(moneda.map((e) => e.value)),
   phone: z
     .number({
-      required_error: "Agrega el telefono",
-      invalid_type_error: "Debe tener un telefono",
+      required_error: 'Agrega el telefono',
+      invalid_type_error: 'Debe tener un telefono',
     })
     .positive(),
   email: z.string().catch(null),
   address: z
     .string()
-    .max(150, { message: "No más de 150 caracteres" })
+    .max(150, { message: 'No más de 150 caracteres' })
     .catch(null),
-  location: z.string().min(1, { message: "Este campo es requerido" }),
+  location: z.string().min(1, { message: 'Este campo es requerido' }),
   packing: z.string().max(20).catch(null),
   units_packing: z.number().positive().catch(null),
 });
@@ -75,7 +76,7 @@ export default function PublishForm() {
 
   const onSubmit = async (dataForm) => {
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append('image', file);
     startTransition(async () => {
       await agregarProducto({ ...dataForm, userId: session?.userId, formData });
     });
@@ -88,7 +89,7 @@ export default function PublishForm() {
           Información del producto
         </h3>
         <Input
-          {...register("tittle")}
+          {...register('tittle')}
           isInvalid={!!errors.tittle}
           errorMessage={errors.tittle?.message}
           label="Nombre del producto"
@@ -99,7 +100,7 @@ export default function PublishForm() {
         />
 
         <Textarea
-          {...register("description")}
+          {...register('description')}
           isInvalid={!!errors.description}
           errorMessage={errors.description?.message}
           labelPlacement="outside"
@@ -113,12 +114,10 @@ export default function PublishForm() {
           {!file && (
             <label
               htmlFor="document"
-              className="w-full h-40 mb-8 md:mb-0 flex-1 flex flex-col justify-center items-center p-4 cursor-pointer rounded-xl bg-[#27272a]"
+              className="w-full h-40 mb-8 md:mb-0 flex-1 flex flex-col justify-center items-center p-4 cursor-pointer rounded-xl text-default-500 bg-default-100"
             >
-              <ImagePlus stroke="#85858c" />
-              <p className="text-small font-thin text-[#85858c]">
-                Agregar foto
-              </p>
+              <AddPicture size="36px" />
+              <p className=" text-sm">Agregar foto</p>
             </label>
           )}
           {file && (
@@ -146,7 +145,7 @@ export default function PublishForm() {
           />
           <div className="flex flex-col flex-1 gap-4">
             <Input
-              {...register("min", { valueAsNumber: true })}
+              {...register('min', { valueAsNumber: true })}
               isInvalid={!!errors.min}
               errorMessage={errors.min?.message}
               labelPlacement="outside"
@@ -162,7 +161,7 @@ export default function PublishForm() {
               type="number"
               min={0}
               labelPlacement="outside"
-              {...register("price", { valueAsNumber: true })}
+              {...register('price', { valueAsNumber: true })}
               isInvalid={!!errors.price}
               errorMessage={errors.price?.message}
               startContent={
@@ -173,13 +172,16 @@ export default function PublishForm() {
               endContent={
                 <Select
                   aria-label="moneda"
-                  {...register("currency")}
+                  {...register('currency')}
                   disallowEmptySelection
-                  style={{
-                    background: "transparent",
-                    width: "100px",
+                  classNames={{
+                    mainWrapper: 'w-20',
+                    base: 'w-fit text-default-400',
+                    trigger: 'bg-transparent',
+                    value: 'group-data-[has-value=true]:text-default-500',
+                    popoverContent: 'dark text-default-400 w-fit',
                   }}
-                  defaultSelectedKeys={["cup"]}
+                  defaultSelectedKeys={['cup']}
                 >
                   {moneda.map((animal) => (
                     <SelectItem key={animal.value} value={animal.value}>
@@ -195,7 +197,7 @@ export default function PublishForm() {
         <h3 className="text-2xl font-semibold mt-6 mb-8">Datos de contacto</h3>
         <div className="md:flex gap-4">
           <Input
-            {...register("phone", { valueAsNumber: true })}
+            {...register('phone', { valueAsNumber: true })}
             isInvalid={!!errors.phone}
             errorMessage={errors.phone?.message}
             type="number"
@@ -207,7 +209,7 @@ export default function PublishForm() {
             isClearable
           />
           <Input
-            {...register("email")}
+            {...register('email')}
             isInvalid={!!errors.email}
             errorMessage={errors.email?.message}
             label="Correo"
@@ -218,7 +220,7 @@ export default function PublishForm() {
           />
         </div>
         <Input
-          {...register("address")}
+          {...register('address')}
           isInvalid={!!errors.address}
           errorMessage={errors.address?.message}
           label="Dirección comercial"
@@ -229,7 +231,7 @@ export default function PublishForm() {
         />
         <h3 className="text-2xl font-semibold mt-6 mb-12">Logística</h3>
         <Input
-          {...register("location")}
+          {...register('location')}
           isInvalid={!!errors.location}
           errorMessage={errors.location?.message}
           label="Lugar de origen"
@@ -240,7 +242,7 @@ export default function PublishForm() {
         />
         <div className="md:flex gap-4">
           <Input
-            {...register("packing")}
+            {...register('packing')}
             isInvalid={!!errors.packing}
             errorMessage={errors.packing?.message}
             label="Tipo de empaque"
@@ -250,7 +252,7 @@ export default function PublishForm() {
             isClearable
           />
           <Input
-            {...register("units_packing", { valueAsNumber: true })}
+            {...register('units_packing', { valueAsNumber: true })}
             isInvalid={!!errors.units_packing}
             errorMessage={errors.units_packing?.message}
             type="number"

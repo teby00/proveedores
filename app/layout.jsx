@@ -46,7 +46,7 @@ export default async function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/img/icons/favicon.svg" sizes="any" />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} mb-16 md:mb-0`}>
         <Providers>
           <Navbar />
           <BottomNavabar />

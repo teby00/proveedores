@@ -1,38 +1,44 @@
-"use client";
-import Link from "next/link";
-import { Home, CirclePlus, User } from "lucide-react";
-import { useSession } from "next-auth/react";
-import { Avatar } from "@nextui-org/avatar";
-import { Skeleton } from "@nextui-org/skeleton";
+'use client';
+import Link from 'next/link';
+import Home from '@/components/icons/home';
+import Add from '@/components/icons/add';
+import { User } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { Avatar } from '@nextui-org/avatar';
+import { Skeleton } from '@nextui-org/skeleton';
+import { usePathname } from 'next/navigation';
 
 export default function BottomNavbar() {
   const { data: session, status } = useSession();
+  const path = usePathname();
 
   const links = [
     {
       icon: <Home size={32} />,
-      text: "Inicio",
-      href: "/",
+      text: 'Inicio',
+      href: '/',
     },
     {
-      icon: <CirclePlus size={32} />,
-      text: "Publicar",
-      href: "/publish",
+      icon: <Add size={32} />,
+      text: 'Publicar',
+      href: '/publish',
     },
     {
       icon:
-        status === "authenticated" ? (
+        status === 'authenticated' ? (
           <Avatar
+            isBordered={path === `/profile/${session?.user?.id}`}
+            color="primary"
             name={session?.user?.name}
             size="sm"
             src={session?.user?.image}
           />
-        ) : status === "loading" ? (
+        ) : status === 'loading' ? (
           <Skeleton className="w-8 h-8 rounded-full" />
         ) : (
           <User size={32} />
         ),
-      text: "Perfil",
+      text: 'Perfil',
       href: `/profile/${session?.user?.id}`,
     },
   ];
@@ -42,7 +48,9 @@ export default function BottomNavbar() {
         <Link
           key={link.text}
           href={link.href}
-          className="text-small font-thin p-2 flex flex-col items-center"
+          className={`${
+            path === link.href && 'text-primary-500'
+          } text-default-500 text-small p-2 flex flex-col items-center gap-[2px]`}
         >
           {link.icon}
           {link.text}

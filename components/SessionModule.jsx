@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
 import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
   DropdownTrigger,
-} from "@nextui-org/dropdown";
-import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
-import { useSession, signIn, signOut } from "next-auth/react";
-import GoogleIcon from "@/components/icons/google";
-import { useState } from "react";
-import { Skeleton } from "@nextui-org/skeleton";
-import { useRouter } from "next/navigation";
+} from '@nextui-org/dropdown';
+import { Avatar } from '@nextui-org/avatar';
+import { Button } from '@nextui-org/button';
+import { useSession, signIn, signOut } from 'next-auth/react';
+import GoogleIcon from '@/components/icons/google';
+import { useState } from 'react';
+import { Skeleton } from '@nextui-org/skeleton';
+import { useRouter } from 'next/navigation';
 
 export default function SessionModule() {
   const { data: session, status } = useSession();
@@ -21,8 +21,13 @@ export default function SessionModule() {
 
   return (
     <>
-      {status === "authenticated" && (
-        <Dropdown placement="bottom-end">
+      {status === 'authenticated' && (
+        <Dropdown
+          placement="bottom-end"
+          classNames={{
+            content: 'dark text-default-500',
+          }}
+        >
           <DropdownTrigger>
             <Avatar
               isBordered
@@ -35,10 +40,6 @@ export default function SessionModule() {
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">{session?.user?.name}</p>
-              <p className="font-semibold">{session?.user?.email}</p>
-            </DropdownItem>
             <DropdownItem
               onClick={() => router.push(`/profile/${session?.user?.id}`)}
               key="my_profile"
@@ -56,11 +57,11 @@ export default function SessionModule() {
           </DropdownMenu>
         </Dropdown>
       )}
-      {status === "unauthenticated" && (
+      {status === 'unauthenticated' && (
         <Button
           onClick={() => {
             setLoading(true);
-            signIn("google");
+            signIn('google');
           }}
           variant="flat"
           isLoading={loading}
@@ -70,7 +71,7 @@ export default function SessionModule() {
         </Button>
       )}
 
-      {status === "loading" && <Skeleton className="w-10 h-10 rounded-full" />}
+      {status === 'loading' && <Skeleton className="w-10 h-10 rounded-full" />}
     </>
   );
 }

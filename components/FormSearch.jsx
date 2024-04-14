@@ -20,6 +20,7 @@ export default function FormSearch() {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
+    reValidateMode: "onSubmit",
   });
 
   const onSubmit = async (dataForm) => {
@@ -29,26 +30,26 @@ export default function FormSearch() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex items-start px-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex items-start">
       <Input
         placeholder="Buscar en Proveedores..."
         {...register("query")}
-        classNames={{ inputWrapper: ["rounded-r-none"] }}
+        variant="bordered"
         isInvalid={!!errors.query}
-        errorMessage={errors.query?.message}
+        endContent={
+          <Button
+            className="bg-transparent text-default-300 hover:text-default-500"
+            type="submit"
+            disabled={isPending}
+            isLoading={isPending}
+            title="Buscar"
+            aria-label="Buscar"
+            isIconOnly
+          >
+            <Search />
+          </Button>
+        }
       />
-      <Button
-        color="primary"
-        type="submit"
-        disabled={isPending}
-        isLoading={isPending}
-        title="Buscar"
-        aria-label="Buscar"
-        className="rounded-l-none"
-        isIconOnly
-      >
-        <Search />
-      </Button>
     </form>
   );
 }

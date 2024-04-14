@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import prisma from "@/lib/db";
 import { Skeleton } from "@nextui-org/skeleton";
 import CardProduct from "@/components/CardProduct";
-import FormSearch from "@/components/FormSearch";
 
 export const dynamic = "force-dynamic";
 
@@ -24,8 +23,6 @@ export default async function Home() {
         <h2 className="mb-6 mt-2 px-4 text-center text-md md:mt-4 md:text-lg leading-6 text-gray-600 dark:text-gray-200">
           Conecta con proveedores o clientes de toda Cuba.
         </h2>
-
-        <FormSearch />
       </div>
       <div className="grid grid-cols-2 w-full md:grid-cols-4">
         {productos?.map((post) => (
