@@ -30,7 +30,7 @@ export default function BottomNavbar() {
         onClick={() => {
           status === 'unauthenticated'
             ? signIn('google')
-            : router.push('publish');
+            : router.push('/publish');
         }}
         className={`${
           path === '/publish' && 'text-primary-500'
