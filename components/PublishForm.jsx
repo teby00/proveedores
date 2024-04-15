@@ -83,7 +83,7 @@ export default function PublishForm() {
   };
 
   return (
-    <main className="mx-auto min-h-screen pt-6 px-4 pb-20 max-w-2xl">
+    <main className="mx-auto min-h-screen pt-6 px-4 pb-10 max-w-2xl">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3 className="text-2xl font-semibold mb-14">
           Información del producto
@@ -95,6 +95,7 @@ export default function PublishForm() {
           label="Nombre del producto"
           labelPlacement="outside"
           className="mb-4"
+          variant="bordered"
           placeholder="Ingresa un nombre"
           isClearable
         />
@@ -103,6 +104,8 @@ export default function PublishForm() {
           {...register('description')}
           isInvalid={!!errors.description}
           errorMessage={errors.description?.message}
+          variant="bordered"
+          minRows={2}
           labelPlacement="outside"
           label="Descripción"
           placeholder="Describe aspectos importantes de tu producto"
@@ -114,7 +117,7 @@ export default function PublishForm() {
           {!file && (
             <label
               htmlFor="document"
-              className="w-full h-40 mb-8 md:mb-0 flex-1 flex flex-col justify-center items-center p-4 cursor-pointer rounded-xl text-default-500 bg-default-100"
+              className="relative w-full tap-highlight-transparent shadow-sm px-3 gap-3 border-medium border-default-200 hover:border-default-400 rounded-medium transition-background !duration-150 transition-colors motion-reduce:transition-none h-40 mb-8 md:mb-0 flex-1 flex flex-col justify-center items-center p-4 cursor-pointer text-default-500"
             >
               <AddPicture size="36px" />
               <p className=" text-sm">Agregar foto</p>
@@ -150,6 +153,7 @@ export default function PublishForm() {
               errorMessage={errors.min?.message}
               labelPlacement="outside"
               type="number"
+              variant="bordered"
               label="Pedido mínimo"
               placeholder="Mínimo de unidades"
               className="mb-4"
@@ -159,6 +163,7 @@ export default function PublishForm() {
               label="Precio"
               placeholder="0.00"
               type="number"
+              variant="bordered"
               min={0}
               labelPlacement="outside"
               {...register('price', { valueAsNumber: true })}
@@ -177,7 +182,7 @@ export default function PublishForm() {
                   classNames={{
                     mainWrapper: 'w-20',
                     base: 'w-fit text-default-400',
-                    trigger: 'bg-transparent',
+                    trigger: 'bg-transparent data-[hover=true]:bg-transparent',
                     value: 'group-data-[has-value=true]:text-default-500',
                     popoverContent: 'dark text-default-400 w-fit',
                   }}
@@ -201,6 +206,7 @@ export default function PublishForm() {
             isInvalid={!!errors.phone}
             errorMessage={errors.phone?.message}
             type="number"
+            variant="bordered"
             min={0}
             label="Teléfono"
             labelPlacement="outside"
@@ -213,6 +219,7 @@ export default function PublishForm() {
             isInvalid={!!errors.email}
             errorMessage={errors.email?.message}
             label="Correo"
+            variant="bordered"
             labelPlacement="outside"
             placeholder="proveedores@gmail.com"
             className="mb-12 md:mb-4"
@@ -225,6 +232,7 @@ export default function PublishForm() {
           errorMessage={errors.address?.message}
           label="Dirección comercial"
           labelPlacement="outside"
+          variant="bordered"
           placeholder="Calle principal % Calles secundarias"
           className="mb-4"
           isClearable
@@ -235,6 +243,7 @@ export default function PublishForm() {
           isInvalid={!!errors.location}
           errorMessage={errors.location?.message}
           label="Lugar de origen"
+          variant="bordered"
           labelPlacement="outside"
           placeholder="Municipio, Provincia"
           className="mb-12 md:mb-4"
@@ -246,6 +255,7 @@ export default function PublishForm() {
             isInvalid={!!errors.packing}
             errorMessage={errors.packing?.message}
             label="Tipo de empaque"
+            variant="bordered"
             labelPlacement="outside"
             placeholder="Cajas, bolsas etc..."
             className="mb-12 md:mb-4"
@@ -257,6 +267,7 @@ export default function PublishForm() {
             errorMessage={errors.units_packing?.message}
             type="number"
             min={0}
+            variant="bordered"
             label="Unidades por empaque"
             labelPlacement="outside"
             placeholder="Número de unidades"

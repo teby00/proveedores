@@ -1,9 +1,9 @@
-import { Suspense } from "react";
-import prisma from "@/lib/db";
-import { Skeleton } from "@nextui-org/skeleton";
-import CardProduct from "@/components/CardProduct";
+import { Suspense } from 'react';
+import prisma from '@/lib/db';
+import { Skeleton } from '@nextui-org/skeleton';
+import CardProduct from '@/components/CardProduct';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const productos = await prisma.post.findMany({
@@ -11,7 +11,7 @@ export default async function Home() {
       id: true,
     },
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
   });
   return (
@@ -24,6 +24,7 @@ export default async function Home() {
           Conecta con proveedores o clientes de toda Cuba.
         </h2>
       </div>
+
       <div className="grid grid-cols-2 w-full md:grid-cols-4">
         {productos?.map((post) => (
           <Suspense

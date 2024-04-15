@@ -3,15 +3,20 @@ import CardProduct from '@/components/CardProduct';
 import { Suspense } from 'react';
 import { Skeleton } from '@nextui-org/skeleton';
 import { User } from '@nextui-org/user';
-// import { Button } from "@nextui-org/button";
-// import { LogOut } from "lucide-react";
+
 import { auth } from '@/auth';
 import DeletePost from '@/components/DeletePost';
+import ButtonLogOut from '@/components/ButtonLogOut';
+import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
 export default async function Profile({ params }) {
   const session = await auth();
+
+  if (!session) {
+    redirect('/');
+  }
 
   const user = await prisma.user.findFirst({
     where: {
@@ -37,11 +42,7 @@ export default async function Profile({ params }) {
           description={user?.email}
           avatarProps={{ src: user?.image, size: 'lg' }}
         />
-        {/* {session?.user?.id === params?.id && (
-          <Button isIconOnly aria-label="Cerrar sesion">
-            <LogOut />
-          </Button>
-        )} */}
+        {session?.user?.id === params?.id && <ButtonLogOut />}
       </div>
 
       <div className="grid w-full grid-cols-2">

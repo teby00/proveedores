@@ -1,21 +1,21 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { Providers } from "./providers";
-import Navbar from "@/components/Navbar";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/react";
-import Footer from "@/components/Footer";
-import BottomNavabar from "@/components/BottomNavbar";
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { Providers } from './providers';
+import Navbar from '@/components/Navbar';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
+import Footer from '@/components/Footer';
+import BottomNavabar from '@/components/BottomNavbar';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: {
-    default: "Proveedores - Conecta con proveedores o clientes de toda Cuba.",
-    template: "%s | Aurora",
+    default: 'Proveedores - Conecta con proveedores o clientes de toda Cuba.',
+    template: '%s | Aurora',
   },
-  description: "Proveedores - Conecta con proveedores o clientes de toda Cuba.",
-  metadataBase: new URL("https://proveedoresapp.vercel.app"),
+  description: 'Proveedores - Conecta con proveedores o clientes de toda Cuba.',
+  metadataBase: new URL('https://proveedoresapp.vercel.app'),
   robots: {
     index: false,
     follow: true,
@@ -24,25 +24,25 @@ export const metadata = {
       index: true,
       follow: false,
       noimageindex: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
   openGraph: {
-    title: "Proveedores",
+    title: 'Proveedores',
     description:
-      "Proveedores - Conecta con proveedores o clientes de toda Cuba.",
-    url: "https://proveedoresapp.vercel.app",
-    siteName: "Proveedores",
-    locale: "es_CU",
-    type: "website",
+      'Proveedores - Conecta con proveedores o clientes de toda Cuba.',
+    url: 'https://proveedoresapp.vercel.app',
+    siteName: 'Proveedores',
+    locale: 'es_CU',
+    type: 'website',
   },
 };
 
 export default async function RootLayout({ children }) {
   return (
-    <html lang="es">
+    <html lang="es" className="dark">
       <head>
         <link rel="icon" href="/img/icons/favicon.svg" sizes="any" />
       </head>

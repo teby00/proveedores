@@ -1,9 +1,11 @@
-import Image from "next/image";
-import { ImageOff } from "lucide-react";
-import Link from "next/link";
-import prisma from "@/lib/db";
-import { User } from "@nextui-org/user";
-import AccordionPost from "@/components/AccordionPost";
+import Image from 'next/image';
+import { ImageOff } from 'lucide-react';
+import Link from 'next/link';
+import prisma from '@/lib/db';
+import { User } from '@nextui-org/user';
+import AccordionPost from '@/components/AccordionPost';
+import { Skeleton } from '@nextui-org/skeleton';
+import { Suspense } from 'react';
 
 export default async function Post({ params }) {
   const { images, tittle, price, currency, min, description, user, ...rest } =
@@ -24,17 +26,23 @@ export default async function Post({ params }) {
           <div className="relative h-full w-full flex-none">
             <div
               className="relative shadow-black/5 shadow-none rounded-large"
-              style={{ maxWidth: "fit-content" }}
+              style={{ maxWidth: 'fit-content' }}
             >
               {images ? (
-                <Image
-                  src={images[0]?.url}
-                  width={400}
-                  height={400}
-                  priority
-                  className="relative z-10 aspect-square object-cover  shadow-black/5  shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large h-full w-full"
-                  alt={tittle}
-                />
+                <Suspense
+                  fallback={
+                    <Skeleton className="w-full h-full aspect-square object-cover  rounded-large" />
+                  }
+                >
+                  <Image
+                    src={images[0]?.url}
+                    width={400}
+                    height={400}
+                    priority
+                    className="relative z-10 aspect-square object-cover  shadow-black/5  shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large h-full w-full"
+                    alt={tittle}
+                  />
+                </Suspense>
               ) : (
                 <div className="bg-[#3f3f46] object-cover aspect-video rounded-lg flex justify-center items-center">
                   <ImageOff width={48} height={48} />
@@ -60,7 +68,7 @@ export default async function Post({ params }) {
             </div>
             <Link className="mt-4" href={`/profile/${user?.id}`}>
               <User
-                avatarProps={{ src: user?.image, size: "md" }}
+                avatarProps={{ src: user?.image, size: 'md' }}
                 name={user?.name}
               />
             </Link>

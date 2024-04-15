@@ -25,7 +25,7 @@ export default function SessionModule() {
         <Dropdown
           placement="bottom-end"
           classNames={{
-            content: 'dark text-default-500',
+            content: 'bg-default-100 text-default-500',
           }}
         >
           <DropdownTrigger>
