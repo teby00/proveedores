@@ -29,20 +29,15 @@ export default async function Post({ params }) {
               style={{ maxWidth: 'fit-content' }}
             >
               {images ? (
-                <Suspense
-                  fallback={
-                    <Skeleton className="w-full h-full aspect-square object-cover  rounded-large" />
-                  }
-                >
-                  <Image
-                    src={images[0]?.url}
-                    width={400}
-                    height={400}
-                    priority
-                    className="relative z-10 aspect-square object-cover  shadow-black/5  shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large h-full w-full"
-                    alt={tittle}
-                  />
-                </Suspense>
+                <Image
+                  src={images[0]?.url}
+                  width={400}
+                  height={400}
+                  placeholder='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mMs/Q8AAe8BduVMpHAAAAAASUVORK5CYII="'
+                  priority
+                  className="relative z-10 aspect-square object-cover  shadow-black/5  shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large h-full w-full"
+                  alt={tittle}
+                />
               ) : (
                 <div className="bg-[#3f3f46] object-cover aspect-video rounded-lg flex justify-center items-center">
                   <ImageOff width={48} height={48} />
@@ -62,7 +57,7 @@ export default async function Post({ params }) {
 
             <div className="mt-4">
               <p className="sr-only">Descripción del producto</p>
-              <p className="line-clamp-5 text-medium text-default-500">
+              <p className="line-clamp-5 whitespace-break-spaces text-medium text-default-500">
                 {description}
               </p>
             </div>

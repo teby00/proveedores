@@ -1,15 +1,19 @@
-"use client";
-import { Input } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
-import { Search } from "lucide-react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { search } from "@/lib/actions";
-import { useTransition } from "react";
+'use client';
+import { Input } from '@nextui-org/input';
+import { Button } from '@nextui-org/button';
+import { Search } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { search } from '@/lib/actions';
+import { useTransition } from 'react';
 
 const schema = z.object({
-  query: z.string().min(1, { message: "Que estás buscando?" }),
+  query: z
+    .string()
+    .trim()
+    .regex(/[\w]/g)
+    .min(1, { message: 'Que estás buscando?' }),
 });
 
 export default function FormSearch() {
@@ -20,7 +24,7 @@ export default function FormSearch() {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    reValidateMode: "onSubmit",
+    reValidateMode: 'onSubmit',
   });
 
   const onSubmit = async (dataForm) => {
@@ -33,7 +37,7 @@ export default function FormSearch() {
     <form onSubmit={handleSubmit(onSubmit)} className="flex items-start">
       <Input
         placeholder="Buscar en Proveedores..."
-        {...register("query")}
+        {...register('query')}
         variant="bordered"
         isInvalid={!!errors.query}
         endContent={

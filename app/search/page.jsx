@@ -1,15 +1,46 @@
-import prisma from "@/lib/db";
-import { Suspense } from "react";
-import { Skeleton } from "@nextui-org/skeleton";
-import { Button } from "@nextui-org/button";
-import CardProduct from "@/components/CardProduct";
-import Link from "next/link";
+import prisma from '@/lib/db';
+import { Suspense } from 'react';
+import { Skeleton } from '@nextui-org/skeleton';
+import { Button } from '@nextui-org/button';
+import CardProduct from '@/components/CardProduct';
+import Link from 'next/link';
 
 export default async function Search({ searchParams }) {
+  const purifyParams = () => {
+    const EC = /[^\w\s]/g;
+    const DS = /\s{2,}/g;
+    const notEspecialCharacters = searchParams?.q.replaceAll(EC, '');
+    const trimed = notEspecialCharacters.trim();
+    const notDoubleSpaces = trimed.replaceAll(DS, ' ');
+    const transformForQuery = notDoubleSpaces.replaceAll(' ', ' | ');
+
+    return transformForQuery;
+  };
+
   const productos = await prisma.post.findMany({
     where: {
-      tittle: {
-        contains: searchParams?.q,
+      OR: [
+        {
+          tittle: {
+            search: purifyParams(),
+          },
+        },
+        {
+          description: {
+            search: purifyParams(),
+          },
+        },
+      ],
+    },
+
+    select: {
+      id: true,
+    },
+    orderBy: {
+      _relevance: {
+        fields: ['tittle', 'description'],
+        search: purifyParams(),
+        sort: 'desc',
       },
     },
   });
@@ -37,15 +68,15 @@ export default async function Search({ searchParams }) {
   } else {
     return (
       <main className="min-h-screen mx-auto pt-8 md:pt-20 max-w-5xl">
-        <div className="grid grid-cols-2 md:grid-cols-4">
+        <div className="grid grid-cols-2 w-full md:grid-cols-4">
           {productos?.map((post) => (
             <Suspense
               key={post?.id}
               fallback={
-                <div className=" flex flex-col p-4 mt-2 mr-4">
-                  <Skeleton className="w-[300px] h-[300px] rounded-lg mb-2" />
-                  <Skeleton className=" w-40 h-3 rounded-lg mb-2" />
-                  <Skeleton className=" w-20 h-3 rounded-lg" />
+                <div className=" flex flex-col p-4">
+                  <Skeleton className="aspect-square rounded-lg mb-3" />
+                  <Skeleton className=" w-3/4 h-4 rounded-lg mb-3" />
+                  <Skeleton className=" w-1/3 h-3 rounded-lg" />
                 </div>
               }
             >

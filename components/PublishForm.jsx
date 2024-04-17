@@ -182,7 +182,8 @@ export default function PublishForm() {
                   classNames={{
                     mainWrapper: 'w-20',
                     base: 'w-fit text-default-400',
-                    trigger: 'bg-transparent data-[hover=true]:bg-transparent',
+                    trigger:
+                      'bg-transparent data-[hover=true]:bg-transparent group-data-[focus=true]:bg-transparent',
                     value: 'group-data-[has-value=true]:text-default-500',
                     popoverContent: 'dark text-default-400 w-fit',
                   }}
